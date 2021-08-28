@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Json to table using Ajax Jquery getJSON</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="table-responsive">
+				<h1> Proyectos Axial</h1>
+				<br />
+				<table class="table table-bordered table-striped" id="proyecto_table">
+					<tr>
+						<th>ObjectID</th>
+						<th>País</th>
+						<th>Tipo</th>
+						<th>Año</th>
+						<th>Mw</th>
+						<th>Servicio</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+			
+	</body>
+	
+</html>
+<script>
+$(document).ready(function(){
+	$.getJSON("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/0/query?where=Country_Region%3D%27US%27&objectIds=&time=&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=standard&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=OBJECTID%2C+Province_State%2C+Country_Region%2C+Last_Update%2C+Lat%2C+Long_%2C+Confirmed%2C+Recovered%2C+Deaths%2C+Active&returnGeometry=false&featureEncoding=esriDefault&multipatchOption=none&maxAllowableOffset=&geometryPrecision=4&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=Confirmed&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=false&quantizationParameters=&sqlFormat=standard&f=pjson&token=",
+        function(data){
+		var proyecto_data ='';
+		$.each(data, function(key, value){
+			proyecto_data += '<tr>';
+			proyecto_data += '<td>' +value.ObjectID+'</td>';
+			proyecto_data += '<td>' +value.Pais+'</td>';
+			proyecto_data += '<td>' +value.Tipo+'</td>';
+			proyecto_data += '<td>' +value.Ano+'</td>';
+			proyecto_data += '<td>' +value.Mw+'</td>';
+			proyecto_data += '<td>' +value.Servicio+'</td>';
+			proyecto_data += '<tr>';
+		});
+		$('#proyecto_table').append(proyecto_data);
+	});
+});
+</script>
+
+
+
